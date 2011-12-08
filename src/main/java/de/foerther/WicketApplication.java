@@ -1,13 +1,12 @@
 package de.foerther;
 
 import org.apache.wicket.protocol.http.WebApplication;
-import org.odlabs.wiquery.core.commons.IWiQuerySettings;
-import org.odlabs.wiquery.core.commons.WiQuerySettings;
+import org.odlabs.wiquery.core.WiQuerySettings;
 
 /**
  * Application object for your web application.
  */
-public class WicketApplication extends WebApplication implements IWiQuerySettings {
+public class WicketApplication extends WebApplication  {
     /**
      * Constructor
      */
@@ -29,8 +28,9 @@ public class WicketApplication extends WebApplication implements IWiQuerySetting
     }
 
 
-    public WiQuerySettings getWiQuerySettings() {
-        WiQuerySettings settings = new WiQuerySettings();
-        return settings;
-    }
+	@Override
+	protected void validateInit() {
+		super.validateInit();
+		WiQuerySettings.get().setMinifiedJavaScriptResources(true);
+	}
 }
