@@ -20,8 +20,11 @@ public class BasePage extends WebPage {
 	@Override
     protected void onInitialize() {
         super.onInitialize();
+        MainMenu menu = new MainMenu("menu");
+        menu.addMenuItem(new MenuItem("Home", HomePage.class));
+        menu.addMenuItem(new MenuItem("Context-Menu", ContextMenuPage.class));
+        add(menu);
         add(new Label("title",getTitle()));
-
     }
 
 

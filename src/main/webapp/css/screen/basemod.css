@@ -52,9 +52,9 @@
    *
    */
 
-  #col1 { float: left; width: 18%}
+  #col1 { display:none}
   #col2 { display:none}
-  #col3 { width: auto; margin: 0 0 0 18%}
+  #col3 { width: auto; margin: 0px }
   #col1_content { padding: 0 10px 0 20px }
   #col3_content { padding: 0 20px 0 10px }
 	
