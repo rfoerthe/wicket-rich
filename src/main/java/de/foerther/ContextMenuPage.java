@@ -2,15 +2,9 @@ package de.foerther;
 
 import de.foerther.components.menu.ContextMenuBehavior;
 import de.foerther.components.menu.ContextMenuItem;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Button;
 
-/**
- * Created by IntelliJ IDEA.
- * User: rfoerthe
- * Date: 14.12.11
- * Time: 21:53
- * To change this template use File | Settings | File Templates.
- */
 public class ContextMenuPage extends BasePage {
     public ContextMenuPage() {
         ContextMenuItem menuItem1 = new ContextMenuItem();
@@ -23,17 +17,29 @@ public class ContextMenuPage extends BasePage {
         menuItem3.setLabel("Option 3");
         menuItem3.setAction("alert('Option 3');");
 
-        ContextMenuBehavior menuBehavior = new ContextMenuBehavior();
-        menuBehavior.addMenuItem(menuItem1);
-        menuBehavior.addSeperator();
-        menuBehavior.addMenuItem(menuItem2);
-        menuBehavior.addSeperator();
-        menuBehavior.addMenuItem(menuItem3);
+        ContextMenuBehavior menuBehavior1 = new ContextMenuBehavior();
+        menuBehavior1.addMenuItem(menuItem1);
+        menuBehavior1.addMenuItem(menuItem2);
 
-        menuBehavior.setThemes(ContextMenuBehavior.Theme.VISTA);
-        menuBehavior.setOpenOnLeftClick(true);
+        WebMarkupContainer divContainer = new WebMarkupContainer("divmenu");
+        divContainer.add(menuBehavior1);
+        add(divContainer);
+
+        ContextMenuBehavior menuBehavior2 = new ContextMenuBehavior();
+        menuBehavior2.addMenuItem(menuItem1);
+        menuBehavior2.addSeperator();
+        menuBehavior2.addMenuItem(menuItem2);
+        menuBehavior2.addSeperator();
+        menuBehavior2.addMenuItem(menuItem3);
+
+        menuBehavior2.setThemes(ContextMenuBehavior.Theme.VISTA);
+        menuBehavior2.setOpenOnLeftClick(true);
+
+
         Button button = new Button("menuButton");
-        button.add(menuBehavior);
+        button.add(menuBehavior2);
         add(button);
     }
+
+
 }

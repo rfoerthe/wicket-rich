@@ -4,6 +4,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.resource.PackageResourceReference;
@@ -12,8 +13,10 @@ import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
 
 /**
- * User: Roland Foerther
- * Date: 15.12.11 Time: 23:46
+ * This Behavior encapsulates the jQuery Plugin for Context Menus from Matt Kruse
+ * (http://www.JavascriptToolbox.com/lib/contextmenu).
+ *
+ * A context menu opens a menu attached to an arbitrary markup element.
  */
 public class ContextMenuBehavior extends WiQueryAbstractBehavior {
     public static final String CONTEXT_MENU_SEPARATOR = "$.contextMenu.separator";
@@ -36,6 +39,7 @@ public class ContextMenuBehavior extends WiQueryAbstractBehavior {
     }
 
     public ContextMenuBehavior setThemes(Theme... themes) {
+        Validate.notEmpty(themes);
         StringBuffer buffer = new StringBuffer();
         for (Theme theme : themes) {
             buffer.append(theme.name().toLowerCase()).append(',');
