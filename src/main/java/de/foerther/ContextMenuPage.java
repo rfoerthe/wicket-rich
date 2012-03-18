@@ -11,21 +11,26 @@ public class ContextMenuPage extends BasePage {
         menuItem1.setLabel("Option 1");
         menuItem1.setAction("alert('Option 1');");
         ContextMenuItem menuItem2 = new ContextMenuItem();
+        menuItem2.setDisabled(true);
         menuItem2.setLabel("Option 2");
         menuItem2.setAction("alert('Option 2');");
         ContextMenuItem menuItem3 = new ContextMenuItem();
         menuItem3.setLabel("Option 3");
         menuItem3.setAction("alert('Option 3');");
+        menuItem3.setHoverTitle("Option3 plays an important role.");
 
         ContextMenuBehavior menuBehavior1 = new ContextMenuBehavior();
-        menuBehavior1.addMenuItem(menuItem1);
-        menuBehavior1.addMenuItem(menuItem2);
-
         WebMarkupContainer divContainer = new WebMarkupContainer("divmenu");
         divContainer.add(menuBehavior1);
         add(divContainer);
+        menuBehavior1.addMenuItem(menuItem1);
+        menuBehavior1.addMenuItem(menuItem2);
+
 
         ContextMenuBehavior menuBehavior2 = new ContextMenuBehavior();
+        Button button = new Button("menuButton");
+        button.add(menuBehavior2);
+        add(button);
         menuBehavior2.addMenuItem(menuItem1);
         menuBehavior2.addSeperator();
         menuBehavior2.addMenuItem(menuItem2);
@@ -36,9 +41,6 @@ public class ContextMenuPage extends BasePage {
         menuBehavior2.setOpenOnLeftClick(true);
 
 
-        Button button = new Button("menuButton");
-        button.add(menuBehavior2);
-        add(button);
     }
 
 

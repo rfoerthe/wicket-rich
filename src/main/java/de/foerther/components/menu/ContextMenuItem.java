@@ -1,17 +1,15 @@
 package de.foerther.components.menu;
 
+import org.apache.wicket.markup.html.link.ILinkListener;
+import org.apache.wicket.request.cycle.RequestCycle;
+
 import java.io.Serializable;
 
-/**
- * Created by IntelliJ IDEA.
- * User: rfoerthe
- * Date: 17.12.11
- * Time: 22:49
- * To change this template use File | Settings | File Templates.
- */
-public class ContextMenuItem implements Serializable {
+public class ContextMenuItem implements Serializable, ILinkListener {
+    private String hoverTitle;
     private String label;
     private String action;
+    private boolean disabled;
     
     public ContextMenuItem() {
     }
@@ -30,5 +28,25 @@ public class ContextMenuItem implements Serializable {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public String getHoverTitle() {
+        return hoverTitle;
+    }
+
+    public void setHoverTitle(String hoverTitle) {
+        this.hoverTitle = hoverTitle;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    public void onLinkClicked() {
+        System.out.println("clicked: "+this.getLabel());
     }
 }

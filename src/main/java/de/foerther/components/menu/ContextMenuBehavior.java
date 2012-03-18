@@ -6,8 +6,10 @@ import net.sf.json.JsonConfig;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.request.resource.PackageResourceReference;
+import org.odlabs.wiquery.core.behavior.WiQueryAbstractAjaxBehavior;
 import org.odlabs.wiquery.core.behavior.WiQueryAbstractBehavior;
 import org.odlabs.wiquery.core.javascript.JsQuery;
 import org.odlabs.wiquery.core.javascript.JsStatement;
@@ -18,7 +20,7 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
  *
  * A context menu opens a menu attached to an arbitrary markup element.
  */
-public class ContextMenuBehavior extends WiQueryAbstractBehavior {
+public class ContextMenuBehavior extends WiQueryAbstractAjaxBehavior {
     public static final String CONTEXT_MENU_SEPARATOR = "$.contextMenu.separator";
 
     private JSONArray menu = new JSONArray();
@@ -34,8 +36,19 @@ public class ContextMenuBehavior extends WiQueryAbstractBehavior {
 
     @Override
     public void renderHead(Component component, IHeaderResponse response) {
+        super.renderHead(component, response);
         response.renderJavaScriptReference(ContextMenuJavaScriptResourceReference.get());
         response.renderCSSReference(new PackageResourceReference(getClass(), "jquery.contextmenu.css"));
+    }
+
+    @Override
+    protected void respond(AjaxRequestTarget target) {
+        System.out.println("respond .......");
+    }
+
+    @Override
+    protected void onBind() {
+        super.onBind();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     public ContextMenuBehavior setThemes(Theme... themes) {
@@ -59,7 +72,11 @@ public class ContextMenuBehavior extends WiQueryAbstractBehavior {
     public ContextMenuBehavior addMenuItem(ContextMenuItem contextMenuItem) {
         JSONObject jsonContextMenuItem = new JSONObject();
         JSONObject jsonContextMenuItemValue = new JSONObject();
-        jsonContextMenuItemValue.put("onclick", "function(menuItem,menu) {" + contextMenuItem.getAction() + "}");
+        jsonContextMenuItemValue.put("onclick", "function(menuItem,menu) {" + getCallbackScript() + "}");
+        if (StringUtils.isNotEmpty(contextMenuItem.getHoverTitle())) {
+            jsonContextMenuItemValue.put("title", contextMenuItem.getHoverTitle());
+        }
+        jsonContextMenuItemValue.put("disabled", contextMenuItem.isDisabled());
         jsonContextMenuItem.put(contextMenuItem.getLabel(), jsonContextMenuItemValue);
         menu.add(jsonContextMenuItem);
 
